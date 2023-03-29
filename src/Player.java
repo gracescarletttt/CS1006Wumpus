@@ -17,27 +17,27 @@ public class Player {
     }
 
     //move
-    public void move(String direction, Cave[][] caveSystem) {
-        if (direction.equals("n")) {
-            if (this.y == caveSystem.length-1) {
+    public void move(String direction) {
+        if (direction.equals("s")) {
+            if (this.y == 19) {
                 this.y = 0;
             } else {
                 this.y ++;
             }
-        } else if (direction.equals("s")) {
+        } else if (direction.equals("n")) {
             if (this.y == 0) {
-                this.y = caveSystem.length-1;
+                this.y = 19;
             } else {
                 this.y --;
             }
         } else if (direction.equals("w")) {
             if (this.x == 0) {
-                this.x = caveSystem.length-1;
+                this.x = 19;
             } else {
                 this.x --;
             }
         } else if (direction.equals("e")) {
-            if (this.x == caveSystem.length-1) {
+            if (this.x == 19) {
                 this.x = 0;
             }
             this.x ++;

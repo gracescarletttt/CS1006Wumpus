@@ -65,11 +65,17 @@ public class Simulation {
     public void setWumpus(int thisMany){
         setting("wumpus", thisMany);
     }
+     public void setPlayer(int x, int y){
+          this.cells[x][y].setPlayer(true);
+    }
 
     public void displayBoard(){
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 20; j++){
-                if(this.cells[i][j].getBat()){
+                if(this.cells[i][j].getPlayer()){
+                    System.out.print("P");
+                }
+                else if(this.cells[i][j].getBat()){
                     System.out.print("B");
                 }
                 else if(this.cells[i][j].getExit()){

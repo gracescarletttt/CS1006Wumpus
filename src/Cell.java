@@ -8,6 +8,7 @@ public class Cell {
     private boolean hole;
     private boolean wumpus;
     private boolean exit;
+    private boolean player;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -28,6 +29,9 @@ public class Cell {
     }
     public void setExit(boolean state){
         this.exit = state;
+    }
+     public void setPlayer(boolean state){
+        this.player = state;
     }
 
     public boolean getCellState(){
@@ -53,6 +57,9 @@ public class Cell {
     }
     public boolean getExit(){
         return this.exit;
+    }
+    public boolean getPlayer(){
+        return this.player;
     }
 
 
