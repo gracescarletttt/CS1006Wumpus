@@ -81,7 +81,7 @@ public class Player {
                     currentY -= caveSystem.length;
                 }
 
-                if (i == 0 && j == 0) {
+                if (i == j) {
                     continue;
                 }
 
@@ -97,12 +97,13 @@ public class Player {
         ArrayList<Cave> neighbours = this.getNeighbours(caveSystem);
 
         for (Cave cave: neighbours) {
-            //if cave has pit 
-                //feel breeze
-            //if cave has wumpus
-                //smell
-            //if cave has treasure
-                //glitter
+            if (cave.getHole()) {
+                System.out.println("You feel a breeze");
+            } else if (cave.getWumpus()) {
+                System.out.println("You smell a Wumpus");
+            } else if (cave.getTreasure()) {
+                System.out.println("You see glittering from a neighbouring cave");
+            }
         }
     }
 

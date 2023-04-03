@@ -15,6 +15,7 @@ public class Main{
             Scanner reader = new Scanner(System.in);
             String command = reader.nextLine();
             me.move(command);
+            me.checkNeighbours(s.getCaves());
             s.setPlayer(me.getY(), me.getX());
             s.displayBoard();
             
