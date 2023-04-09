@@ -23,10 +23,22 @@ public class Simulation {
         return rand.nextInt(20);
     }
 
-    public void setting(String beingSet, int thisMany){
+    public void setting(String beingSet, int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
         for(int i = 0; i<thisMany; i++){
             int x = getRandomNo();
             int y = getRandomNo();
+            int x2 = getRandomNo();
+            int y2 = getRandomNo();
+            while((x == playerX && y == playerY) || (x2 == wumpusX && y2 == wumpusY)){
+                if(x == playerX && y == playerX){
+                    x = getRandomNo();
+                    y = getRandomNo();
+                }
+                else if(x2 == wumpusX && y2 == wumpusY){
+                    x2 = getRandomNo();
+                    y2 = getRandomNo();
+                }
+            }
             if(this.caves[y][x].getCellState()){
                 i--;
             }
@@ -52,35 +64,44 @@ public class Simulation {
         
     }
 
-    public void setTreasure(int thisMany){
-        setting("treasure", thisMany);
+    public void setTreasure(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
+        setting("treasure", thisMany, playerY, playerX, wumpusY, wumpusX);
         
     }
 
-    public void setHoles(int thisMany){
-        setting("hole", thisMany);
+    public void setHoles(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
+        setting("hole", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
 
-    public void setExit(int thisMany){
-       setting("exit", thisMany);
+    public void setExit(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
+       setting("exit", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
 
-    public void setBats(int thisMany){
-        setting("bats", thisMany);
+    public void setBats(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
+        setting("bats", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
 
-    public void setWumpus(int thisMany){
-        setting("wumpus", thisMany);
+    public void setWumpus(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
+        setting("wumpus", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
     public void setPlayer(int y, int x){
         this.caves[y][x].setPlayer(true);
     }
-    public void removePlayer(int y, int x){
-        this.caves[y][x].setPlayer(false);
+    public void setWumpus(int y, int x){
+        this.caves[y][x].setWumpus(true);
     }
+    
     public void setRoute(int y, int x){
         this.caves[y][x].setRoute(true);
     }
+    public void removePlayer(int y, int x){
+        this.caves[y][x].setPlayer(false);
+    }
+    public void removeTreasure(int y, int x){
+        this.caves[y][x].setTreasure(false);
+    }
+
+
 
 
     public Cave[][] getCaves() {
@@ -147,7 +168,7 @@ public class Simulation {
 
                 }
                 else if(this.caves[y][x].getRoute()){
-                    System.out.print("o");
+                    System.out.print("*");
                 }
                 else{
                     System.out.print(".");
