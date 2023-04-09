@@ -4,16 +4,20 @@ public class Main {
     public static void main(String[] args){
         //Main obj = new Main();
         Simulation s = new Simulation();
-        s.setBats(2);
-        s.setExit(1);
-        s.setHoles(3);
-        s.setWumpus(1);
-        s.setTreasure(4);
+        
         
         Player me = new Player();
+        Wumpus wumpus = new Wumpus();
         //s.setPlayer(me);
         me.moveToRandom();
         s.setPlayer(me.getY(), me.getX());
+        wumpus.moveToRandom(me.getY(), me.getX());
+        s.setWumpus(wumpus.getY(), wumpus.getX());
+        s.setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());//for each of these sets, pass in coordinates of wumpus and player to make sure these aren't placed on their co-ordinates
+        s.setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        s.setHoles(4, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        //s.setWumpus(1);
+        s.setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
         s.displayBoard();
         System.out.println(me.getY() + " Y and X " + me.getX());
         while(me.getStatus()){
@@ -24,7 +28,7 @@ public class Main {
             me.move(command);
             if(s.checkHole(me.getY(), me.getX())){
                 me.kill();
-                System.out.println("You fell in a hole and died. Better luck next time!");
+                System.out.println("You fell in a pitt and died. Better luck next time!");
             }
             if(s.checkExit(me.getY(), me.getX())){
                 if(me.getTreasure()){
@@ -44,6 +48,7 @@ public class Main {
             if(s.checkTreasure(me.getY(), me.getX())){
                 me.setTreasure(true);
                 System.out.println("Treasure collected.");
+                s.removeTreasure(me.getY(), me.getX());
             }
             s.removePlayer(yPosBeforeMove, xPosBeforeMove);
             s.setRoute(yPosBeforeMove, xPosBeforeMove);
