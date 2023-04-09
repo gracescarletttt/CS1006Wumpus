@@ -10,8 +10,8 @@ public class Player {
     private boolean hasTreasure;
 
     public Player() {
-        //assign random start postition (edit so don't spawn on a hazard)
-        //this.moveToRandom();
+        //assign random start postition 
+        this.moveToRandom();
 
         this.alive = true;
         this.arrows = 5;
@@ -46,8 +46,27 @@ public class Player {
     }
 
     //shoot
-    public void shoot() {
-        //EDIT: add code to check for things in neighbouring caves?? or do it in cave??
+    public void shoot(Cave[][] caveSystem, Wumpus wumpus, String direction) {
+        Cave adjacentCave = null;
+
+        if (direction.equals("n")) {
+            adjacentCave = caveSystem[this.getX()][this.getY()+1];
+        } else if (direction.equals("s")) {
+            adjacentCave = caveSystem[this.getX()][this.getY()-1];
+        } else if (direction.equals("e")) {
+            adjacentCave = caveSystem[this.getX()+1][this.getY()];
+        } else if (direction.equals("w")) {
+            adjacentCave = caveSystem[this.getX()-1][this.getY()];
+        }
+        
+        if (adjacentCave.getWumpus()) {
+            System.out.println("You killed the Wumpus!");
+            wumpus.kill();
+        } else {
+            System.out.println("You missed.");
+            wumpus.moveToRandom(y, x);
+        }
+
         this.arrows--;
     }
 
@@ -62,15 +81,12 @@ public class Player {
     public ArrayList<Cave> getNeighbours(Cave[][] caveSystem) {
         ArrayList<Cave> neighbourCaves = new ArrayList<Cave>();
 
-        //int currentX = this.x;
-        //int currentY = this.y;
+        int currentX = this.x;
+        int currentY = this.y;
         for (int y = -1; y <= 1; y++) {
             for (int x = -1; x <= 1; x++) {
-                //currentX = this.x + i;
-                //currentY = this.y + j;
-
-                int currentY = this.y + y;
-                int currentX = this.x + x;
+                currentX = this.x + x;
+                currentY = this.y + y;
 
                 //compensate for wrapping around in x
                 if (currentY < 0) {
@@ -86,7 +102,8 @@ public class Player {
                     currentX -= caveSystem.length;
                 }
 
-                 if (y == x) {
+                //if the modulus of x and y are equal (anything other than directly adjacent squares) ignore
+                 if (Math.abs(y) == Math.abs(x)) {
                      continue;
                 }
 
@@ -109,6 +126,25 @@ public class Player {
             } else if (cave.getTreasure()) {
                 System.out.println("You see glittering from a neighbouring cave");
             }
+        }
+    }
+
+    //check the player's current position for hazards
+    public void checkPosition(Cave[][] caveSystem) {
+        Cave currentCave = caveSystem[this.getX()][this.getY()];
+
+        if (currentCave.getBat()) {
+            System.out.println("You got picked up and moved by the Superbats!");
+            this.moveToRandom();
+        } else if (currentCave.getWumpus()) {
+            System.out.println("The Wumpus got you. You lose.");
+            this.kill();
+        } else if (currentCave.getHole()) {
+            System.out.println("You fell in a pit and died. Better luck next time!");
+            this.kill();
+        } else if (currentCave.getTreasure()) {
+            System.out.println("You found the treasure! Now you need to get to the exit!");
+            this.setTreasure(true);
         }
     }
 
@@ -141,6 +177,7 @@ public class Player {
     public void setY(int y) {
         this.y = y;
     }
+
     public void setTreasure(boolean hasTreasure){
         this.hasTreasure = hasTreasure;
     }

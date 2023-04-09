@@ -13,7 +13,6 @@ public class Simulation {
         
     }
 
-
     // public void setPlayerObj(Player me){
     //      this.me = me;
     // }

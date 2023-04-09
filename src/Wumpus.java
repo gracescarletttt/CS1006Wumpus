@@ -1,9 +1,5 @@
-
-
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.naming.NameAlreadyBoundException;
 
 public class Wumpus {
     private int x;
@@ -15,34 +11,6 @@ public class Wumpus {
         //this.moveToRandom();
 
         this.alive = true;
-    }
-
-    //move
-    public void move(String direction) {
-        if (direction.equals("s")) {
-            if (this.y == 19) {
-                this.y = 0;
-            } else {
-                this.y++;
-            }
-        } else if (direction.equals("w")) {
-            if (this.y == 0) {
-                this.y = 19;
-            } else {
-                this.y--;
-            }
-        } else if (direction.equals("a")) {
-            if (this.x == 0) {
-                this.x = 19;
-            } else {
-                this.x--;
-            }
-        } else if (direction.equals("d")) {
-            if (this.x == 19) {
-                this.x = 0;
-            }
-            this.x++;
-        }
     }
 
     public void move2(int playerY, int playerX){
@@ -139,22 +107,6 @@ public class Wumpus {
 
         return neighbourCaves;
     }
-
-    //search through neighbouring caves and get percepts - finish once cave class written
-    public void checkNeighbours(Cave[][] caveSystem) {
-        ArrayList<Cave> neighbours = this.getNeighbours(caveSystem);
-
-        for (Cave cave: neighbours) {
-            if (cave.getHole()) {
-                System.out.println("You feel a breeze");
-            } else if (cave.getWumpus()) {
-                System.out.println("You smell a Wumpus");
-            } else if (cave.getTreasure()) {
-                System.out.println("You see glittering from a neighbouring cave");
-            }
-        }
-    }
-
 
     //----------------getters-------------------------
     public int getX() {

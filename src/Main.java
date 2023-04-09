@@ -2,14 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        //Main obj = new Main();
         Simulation s = new Simulation();
-        
-        
         Player me = new Player();
         Wumpus wumpus = new Wumpus();
-        //s.setPlayer(me);
-        me.moveToRandom();
         s.setPlayer(me.getY(), me.getX());
         wumpus.moveToRandom(me.getY(), me.getX());
         s.setWumpus(wumpus.getY(), wumpus.getX());
@@ -26,9 +21,10 @@ public class Main {
             int yPosBeforeMove = me.getY();
             int xPosBeforeMove = me.getX();
             me.move(command);
+            //------rewriting as Player.checkPosition()
             if(s.checkHole(me.getY(), me.getX())){
                 me.kill();
-                System.out.println("You fell in a pitt and died. Better luck next time!");
+                System.out.println("You fell in a pit and died. Better luck next time!");
             }
             else if((me.getY() == wumpus.getY()) && (me.getX() == wumpus.getX())){
                 me.kill();
@@ -47,6 +43,7 @@ public class Main {
                 me.moveToRandom();
                 s.setPlayer(me.getY(), me.getX());
             }
+            //------------------------------------------------------------------------------------------------
 
             me.checkNeighbours(s.getCaves());
             if(s.checkTreasure(me.getY(), me.getX())){
