@@ -7,10 +7,11 @@ public class Player {
     private int y;
     private int arrows;
     private boolean alive;
+    private boolean hasTreasure;
 
     public Player() {
         //assign random start postition (edit so don't spawn on a hazard)
-        this.moveToRandom();
+        //this.moveToRandom();
 
         this.alive = true;
         this.arrows = 5;
@@ -22,25 +23,25 @@ public class Player {
             if (this.y == 19) {
                 this.y = 0;
             } else {
-                this.y ++;
+                this.y++;
             }
-        } else if (direction.equals("n")) {
+        } else if (direction.equals("w")) {
             if (this.y == 0) {
                 this.y = 19;
             } else {
-                this.y --;
+                this.y--;
             }
-        } else if (direction.equals("w")) {
+        } else if (direction.equals("a")) {
             if (this.x == 0) {
                 this.x = 19;
             } else {
-                this.x --;
+                this.x--;
             }
-        } else if (direction.equals("e")) {
+        } else if (direction.equals("d")) {
             if (this.x == 19) {
                 this.x = 0;
             }
-            this.x ++;
+            this.x++;
         }
     }
 
@@ -61,31 +62,35 @@ public class Player {
     public ArrayList<Cave> getNeighbours(Cave[][] caveSystem) {
         ArrayList<Cave> neighbourCaves = new ArrayList<Cave>();
 
-        int currentX, currentY;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                currentX = this.x + i;
-                currentY = this.y + j;
+        //int currentX = this.x;
+        //int currentY = this.y;
+        for (int y = -1; y <= 1; y++) {
+            for (int x = -1; x <= 1; x++) {
+                //currentX = this.x + i;
+                //currentY = this.y + j;
+
+                int currentY = this.y + y;
+                int currentX = this.x + x;
 
                 //compensate for wrapping around in x
-                if (currentX < 0) {
-                    currentX += caveSystem.length;
-                } else if (currentX >= caveSystem.length) {
-                    currentX -= caveSystem.length;
-                }
-                
-                //compensate for wrapping around in y
                 if (currentY < 0) {
                     currentY += caveSystem.length;
                 } else if (currentY >= caveSystem.length) {
                     currentY -= caveSystem.length;
                 }
-
-                if (i == j) {
-                    continue;
+                
+                //compensate for wrapping around in y
+                if (currentX < 0) {
+                    currentX += caveSystem.length;
+                } else if (currentX >= caveSystem.length) {
+                    currentX -= caveSystem.length;
                 }
 
-                neighbourCaves.add(caveSystem[currentX][currentY]);
+                 if (y == x) {
+                     continue;
+                }
+
+                neighbourCaves.add(caveSystem[currentY][currentX]);
             }
         } 
 
@@ -120,6 +125,9 @@ public class Player {
     public boolean getStatus() {
         return this.alive;
     }
+    public boolean getTreasure(){
+        return this.hasTreasure;
+    }
 
     //----------------setters-------------------------
     public void kill() {
@@ -132,5 +140,8 @@ public class Player {
 
     public void setY(int y) {
         this.y = y;
+    }
+    public void setTreasure(boolean hasTreasure){
+        this.hasTreasure = hasTreasure;
     }
 }
