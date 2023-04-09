@@ -20,8 +20,8 @@ public class Main {
         s.setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
         s.displayBoard();
         System.out.println(me.getY() + " Y and X " + me.getX());
+        Scanner reader = new Scanner(System.in);
         while(me.getStatus()){
-            Scanner reader = new Scanner(System.in);
             String command = reader.nextLine();
             int yPosBeforeMove = me.getY();
             int xPosBeforeMove = me.getX();
@@ -30,7 +30,11 @@ public class Main {
                 me.kill();
                 System.out.println("You fell in a pitt and died. Better luck next time!");
             }
-            if(s.checkExit(me.getY(), me.getX())){
+            else if((me.getY() == wumpus.getY()) && (me.getX() == wumpus.getX())){
+                me.kill();
+                System.out.println("Wumpus got you. You lose.");
+            }
+            else if(s.checkExit(me.getY(), me.getX())){
                 if(me.getTreasure()){
                     System.out.println("Congratulations! You won!");
                     break;
@@ -39,7 +43,7 @@ public class Main {
                     System.out.println("You found the exit, however you have no treasure. Try find the treasure and get back here safely to win.");
                 }
             }
-            if(s.checkBats(me.getY(), me.getX())){
+            else if(s.checkBats(me.getY(), me.getX())){
                 me.moveToRandom();
                 s.setPlayer(me.getY(), me.getX());
             }
@@ -57,6 +61,7 @@ public class Main {
             System.out.println(me.getY() + " Y and X " + me.getX());
             
         }
+        reader.close();
         
 
     }
