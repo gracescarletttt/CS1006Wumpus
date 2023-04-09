@@ -9,12 +9,16 @@ public class Cave {
     private boolean wumpus;
     private boolean exit;
     private boolean player;
+    private boolean route;
 
     public Cave(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
+    public void setRoute(boolean state){
+        this.route = state;
+    }
     public void setTreasure(boolean state){
         this.treasure = state;
     }
@@ -60,6 +64,9 @@ public class Cave {
     }
     public boolean getPlayer(){
         return this.player;
+    }
+    public boolean getRoute(){
+        return this.route;
     }
 
 
