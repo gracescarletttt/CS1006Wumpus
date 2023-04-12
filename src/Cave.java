@@ -80,4 +80,12 @@ public class Cave {
     public int getY() {
         return this.y;
     }
+
+    public boolean checkWumpus(int x, int y) {
+        if (x == this.x && y == this.y) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -82,22 +82,25 @@ public class Player {
             }
             adjacentCave = caveSystem[x][this.getY()];
         }
-        
-        System.out.println(adjacentCave.getY()+" "+adjacentCave.getX());
-        System.out.println(adjacentCave.getWumpus());
 
-        if (adjacentCave.getWumpus()) {
-            System.out.println("You killed the Wumpus!");
-            wumpus.kill();
-            simulation.removeWumpus(wumpus.getY(), wumpus.getY());
+        if (this.arrows > 0) {
+            if (adjacentCave.checkWumpus(wumpus.getX(), wumpus.getY())) {
+                System.out.println("You killed the Wumpus!");
+                wumpus.kill();
+                simulation.removeWumpus(wumpus.getY(), wumpus.getX());
+            } else {
+                System.out.println("You missed.");
+                simulation.removeWumpus(wumpus.getY(), wumpus.getX());
+                wumpus.moveToRandom();
+                simulation.setWumpus(wumpus.getY(),wumpus.getX());
+            }
+    
+            this.arrows--;
         } else {
-            System.out.println("You missed.");
-            simulation.removeWumpus(wumpus.getY(), wumpus.getX());
-            wumpus.moveToRandom();
-            simulation.setWumpus(wumpus.getY(),wumpus.getX());
+            System.out.println("You're out of arrows!");
         }
 
-        this.arrows--;
+
     }
 
     //move to random position

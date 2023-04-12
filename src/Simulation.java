@@ -14,10 +14,6 @@ public class Simulation {
         this.running = true;    
     }
 
-    // public void setPlayerObj(Player me){
-    //      this.me = me;
-    // }
-
     public int getRandomNo(){
         Random rand = new Random();
         return rand.nextInt(20);
@@ -79,10 +75,6 @@ public class Simulation {
 
     public void setBats(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
         setting("bats", thisMany, playerY, playerX, wumpusY, wumpusX);
-    }
-
-    public void setWumpus(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
-        setting("wumpus", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
 
     public void setPlayer(int y, int x){
@@ -154,15 +146,6 @@ public class Simulation {
             return true;
         }
         else{
-            return false;
-        }
-    }
-
-    //make this more efficient??
-    public boolean checkWumpus(int y, int x, Wumpus wumpus) {
-        if (x == wumpus.getX() && y == wumpus.getY()) {
-            return true;
-        } else {
             return false;
         }
     }

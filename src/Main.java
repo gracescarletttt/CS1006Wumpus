@@ -10,7 +10,6 @@ public class Main {
 
         //adding to simulation (could make this more efficient within simulation class?)
         s.setPlayer(me.getY(), me.getX());
-        System.out.println(wumpus.getY()+" "+wumpus.getX());
         s.setWumpus(wumpus.getY(), wumpus.getX());
         s.setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());//for each of these sets, pass in coordinates of wumpus and player to make sure these aren't placed on their co-ordinates
         s.setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
@@ -18,6 +17,10 @@ public class Main {
         s.setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
 
         //display title and initial instructions
+        System.out.println();
+        System.out.println();
+        System.out.println("*********************************************************************************************");
+        System.out.println();
         System.out.println("""
             __                __       __   __                                                        
             |  |--.--.--.-----|  |_    |  |_|  |--.-----.   .--.--.--.--.--.--------.-----.--.--.-----.
@@ -28,13 +31,13 @@ public class Main {
 
         System.out.println("*********************************************************************************************");
         System.out.println("Try to find your way through the cave system to collect the treasure and make it to the exit.");
-        System.out.println("Within the cave system there are: a number of bottomless pits, a number of Wumpuses, a number of Superbats, one treasure chest and one exit.");
+        System.out.println("Within the cave system there are: a number of bottomless pits, one Wumpus, a number of Superbats, one treasure chest and one exit.");
         System.out.println("- A Wumpus is very smelly. If you are in an adjacent cave to a Wumpus, you will smell it.");
         System.out.println("- If you are in an adjacent cave to a pit, you will feel a breeze.");
         System.out.println("- If you are in an adjacent cave to the treasure, you will see the treasure glittering.");
         System.out.println("- If you are picked up by a Superbat, you will be moved to a random position in the cave system.");
         System.out.println("On each move you can choose to move (m) or shoot (s). Use the wsad keys to choose the direction of your movement or shot.");
-
+        System.out.println();
 
         //display initial board and position
         s.displayBoard();
@@ -67,14 +70,11 @@ public class Main {
                 System.out.println("Please choose a valid action option!");
             }
 
-
             //checking for hazards
             me.checkPosition(s.getCaves(),s);
 
             //checking for percepts
             me.checkNeighbours(s.getCaves());
-
-            System.out.println(wumpus.getY()+" "+wumpus.getX());
 
             //display board and position
             s.displayBoard();
