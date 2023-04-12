@@ -3,7 +3,6 @@ import java.util.Random;
 public class Simulation {
     private Cave[][] caves = new Cave[20][20];
     private boolean running;
-    private Player me = new Player();
 
     public Simulation(){
         for (int y = 0; y < 20; y++) {
@@ -107,6 +106,10 @@ public class Simulation {
         this.caves[y][x].setTreasure(false);
     }
 
+    public void removeWumpus(int y, int x) {
+        this.caves[y][x].setWumpus(false);
+    }
+
     public void stopRunning() {
         this.running = false;
     }
@@ -151,6 +154,15 @@ public class Simulation {
             return true;
         }
         else{
+            return false;
+        }
+    }
+
+    //make this more efficient??
+    public boolean checkWumpus(int y, int x, Wumpus wumpus) {
+        if (x == wumpus.getX() && y == wumpus.getY()) {
+            return true;
+        } else {
             return false;
         }
     }

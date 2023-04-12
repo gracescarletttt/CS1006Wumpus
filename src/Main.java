@@ -10,7 +10,7 @@ public class Main {
 
         //adding to simulation (could make this more efficient within simulation class?)
         s.setPlayer(me.getY(), me.getX());
-        wumpus.moveToRandom(me.getY(), me.getX());
+        System.out.println(wumpus.getY()+" "+wumpus.getX());
         s.setWumpus(wumpus.getY(), wumpus.getX());
         s.setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());//for each of these sets, pass in coordinates of wumpus and player to make sure these aren't placed on their co-ordinates
         s.setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
@@ -39,18 +39,34 @@ public class Main {
         //display initial board and position
         s.displayBoard();
         System.out.println(me.getY() + " Y and X " + me.getX());
+        System.out.println("You have "+me.getArrows()+" arrows left");
 
         //scanner to read user input
         Scanner reader = new Scanner(System.in);
 
         //game loop - runs as long as player is alive and the simulation is still running
         while(me.getStatus() && s.getRunning()){
+            System.out.println("Press [m] to move or [s] to shoot: ");
             String command = reader.nextLine();
 
-            //moving
-            int yPosBeforeMove = me.getY();
-            int xPosBeforeMove = me.getX();
-            me.move(command);
+            if (command.toLowerCase().equals("m")) {
+                String direction = reader.nextLine();
+                //moving
+                int yPosBeforeMove = me.getY();
+                int xPosBeforeMove = me.getX();
+                me.move(direction);
+
+                //setting route
+                s.removePlayer(yPosBeforeMove, xPosBeforeMove);
+                s.setRoute(yPosBeforeMove, xPosBeforeMove);
+                s.setPlayer(me.getY(), me.getX());
+            } else if (command.toLowerCase().equals("s")) {
+                String direction = reader.nextLine();
+                me.shoot(s.getCaves(), wumpus, direction,s);
+            } else {
+                System.out.println("Please choose a valid action option!");
+            }
+
 
             //checking for hazards
             me.checkPosition(s.getCaves(),s);
@@ -58,15 +74,12 @@ public class Main {
             //checking for percepts
             me.checkNeighbours(s.getCaves());
 
-            //setting route
-            s.removePlayer(yPosBeforeMove, xPosBeforeMove);
-            s.setRoute(yPosBeforeMove, xPosBeforeMove);
-            s.setPlayer(me.getY(), me.getX());
+            System.out.println(wumpus.getY()+" "+wumpus.getX());
 
             //display board and position
             s.displayBoard();
             System.out.println(me.getY() + " Y and X " + me.getX());
-            
+            System.out.println("You have "+me.getArrows()+" arrows left");   
         }
         reader.close();
 

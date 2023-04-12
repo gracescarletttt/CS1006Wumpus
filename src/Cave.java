@@ -48,22 +48,36 @@ public class Cave {
     public boolean getTreasure(){
         return this.treasure;
     }
+
     public boolean getBat(){
         return this.bat;
     }
+
     public boolean getHole(){
         return this.hole;
     }
+
     public boolean getWumpus(){
         return this.wumpus;
     }
+
     public boolean getExit(){
         return this.exit;
     }
+
     public boolean getPlayer(){
         return this.player;
     }
+
     public boolean getRoute(){
         return this.route;
+    }
+
+    public int getX() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y;
     }
 }

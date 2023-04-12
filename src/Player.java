@@ -46,25 +46,55 @@ public class Player {
     }
 
     //shoot
-    public void shoot(Cave[][] caveSystem, Wumpus wumpus, String direction) {
+    public void shoot(Cave[][] caveSystem, Wumpus wumpus, String direction, Simulation simulation) {
         Cave adjacentCave = null;
 
         if (direction.equals("w")) {
-            adjacentCave = caveSystem[this.getY()+1][this.getX()];
+            int y;
+            if (this.getY()== 0) {
+                y = 19;
+            } else {
+                y = this.getY() - 1;
+            }
+            adjacentCave = caveSystem[this.getX()][y];
         } else if (direction.equals("s")) {
-            adjacentCave = caveSystem[this.getY()-1][this.getX()];
+            int y;
+            if (this.getY() == 19) {
+                y = 0;
+            } else {
+                y = this.getY() + 1;
+            }
+            adjacentCave = caveSystem[this.getX()][y];
         } else if (direction.equals("d")) {
-            adjacentCave = caveSystem[this.getY()][this.getX()+1];
-        } else if (direction.equals("w")) {
-            adjacentCave = caveSystem[this.getY()][this.getX()-1];
+            int x;
+            if (this.getX() == 19) {
+                x = 0;
+            } else {
+                x = this.getX() + 1;
+            } 
+            adjacentCave = caveSystem[x][this.getY()];
+        } else if (direction.equals("a")) {
+            int x;
+            if (this.getX() == 0) {
+                x = 19;
+            } else {
+                x = this.getX() - 1;
+            }
+            adjacentCave = caveSystem[x][this.getY()];
         }
         
+        System.out.println(adjacentCave.getY()+" "+adjacentCave.getX());
+        System.out.println(adjacentCave.getWumpus());
+
         if (adjacentCave.getWumpus()) {
             System.out.println("You killed the Wumpus!");
             wumpus.kill();
+            simulation.removeWumpus(wumpus.getY(), wumpus.getY());
         } else {
             System.out.println("You missed.");
-            wumpus.moveToRandom(y, x);
+            simulation.removeWumpus(wumpus.getY(), wumpus.getX());
+            wumpus.moveToRandom();
+            simulation.setWumpus(wumpus.getY(),wumpus.getX());
         }
 
         this.arrows--;
@@ -131,19 +161,15 @@ public class Player {
 
     //check the player's current position for hazards
     public void checkPosition(Cave[][] caveSystem, Simulation simulation) {
-        System.out.println("Checking position");
         Cave currentCave = caveSystem[this.getY()][this.getX()];
 
         if (currentCave.getBat()) {
-            System.out.println("Bats found"); //TESTING
             System.out.println("You got picked up and moved by the Superbats!");
             this.moveToRandom();
         } else if (currentCave.getWumpus()) {
-            System.out.println("wumpus found"); //TESTING
             System.out.println("The Wumpus got you. You lose.");
             this.kill();
         } else if (currentCave.getHole()) {
-            System.out.println("hole found"); //TESTING
             System.out.println("You fell in a pit and died. Better luck next time!");
             this.kill();
         } else if (currentCave.getTreasure()) {
@@ -173,8 +199,13 @@ public class Player {
     public boolean getStatus() {
         return this.alive;
     }
+
     public boolean getTreasure(){
         return this.hasTreasure;
+    }
+
+    public int getArrows() {
+        return this.arrows;
     }
 
     //----------------setters-------------------------

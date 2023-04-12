@@ -7,8 +7,7 @@ public class Wumpus {
     private boolean alive;
 
     public Wumpus() {
-        //assign random start postition (edit so don't spawn on a hazard)
-        //this.moveToRandom();
+        this.moveToRandom();
 
         this.alive = true;
     }
@@ -63,10 +62,10 @@ public class Wumpus {
     }
 
     //move to random position
-    public void moveToRandom(int y, int x) {
+    public void moveToRandom() {
         Random rd = new Random();
         this.x = rd.nextInt(0,19);
-        this.y = rd.nextInt(0,19);
+        this.x = rd.nextInt(0,19);
     }
 
     //get the neigbouring caves
