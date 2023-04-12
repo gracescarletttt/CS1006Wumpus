@@ -21,16 +21,8 @@ public class Main {
             int yPosBeforeMove = me.getY();
             int xPosBeforeMove = me.getX();
             me.move(command);
-            //------rewriting as Player.checkPosition()
-            if(s.checkHole(me.getY(), me.getX())){
-                me.kill();
-                System.out.println("You fell in a pit and died. Better luck next time!");
-            }
-            else if((me.getY() == wumpus.getY()) && (me.getX() == wumpus.getX())){
-                me.kill();
-                System.out.println("Wumpus got you. You lose.");
-            }
-            else if(s.checkExit(me.getY(), me.getX())){
+            me.checkPosition(s.getCaves());
+            if(s.checkExit(me.getY(), me.getX())){
                 if(me.getTreasure()){
                     System.out.println("Congratulations! You won!");
                     break;
@@ -39,11 +31,6 @@ public class Main {
                     System.out.println("You found the exit, however you have no treasure. Try find the treasure and get back here safely to win.");
                 }
             }
-            else if(s.checkBats(me.getY(), me.getX())){
-                me.moveToRandom();
-                s.setPlayer(me.getY(), me.getX());
-            }
-            //------------------------------------------------------------------------------------------------
 
             me.checkNeighbours(s.getCaves());
             if(s.checkTreasure(me.getY(), me.getX())){

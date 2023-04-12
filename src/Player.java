@@ -49,14 +49,14 @@ public class Player {
     public void shoot(Cave[][] caveSystem, Wumpus wumpus, String direction) {
         Cave adjacentCave = null;
 
-        if (direction.equals("n")) {
-            adjacentCave = caveSystem[this.getX()][this.getY()+1];
+        if (direction.equals("w")) {
+            adjacentCave = caveSystem[this.getY()+1][this.getX()];
         } else if (direction.equals("s")) {
-            adjacentCave = caveSystem[this.getX()][this.getY()-1];
-        } else if (direction.equals("e")) {
-            adjacentCave = caveSystem[this.getX()+1][this.getY()];
+            adjacentCave = caveSystem[this.getY()-1][this.getX()];
+        } else if (direction.equals("d")) {
+            adjacentCave = caveSystem[this.getY()][this.getX()+1];
         } else if (direction.equals("w")) {
-            adjacentCave = caveSystem[this.getX()-1][this.getY()];
+            adjacentCave = caveSystem[this.getY()][this.getX()-1];
         }
         
         if (adjacentCave.getWumpus()) {
@@ -131,18 +131,23 @@ public class Player {
 
     //check the player's current position for hazards
     public void checkPosition(Cave[][] caveSystem) {
-        Cave currentCave = caveSystem[this.getX()][this.getY()];
+        System.out.println("Checking position");
+        Cave currentCave = caveSystem[this.getY()][this.getX()];
 
         if (currentCave.getBat()) {
+            System.out.println("Bats found"); //TESTING
             System.out.println("You got picked up and moved by the Superbats!");
             this.moveToRandom();
         } else if (currentCave.getWumpus()) {
+            System.out.println("wumpus found"); //TESTING
             System.out.println("The Wumpus got you. You lose.");
             this.kill();
         } else if (currentCave.getHole()) {
+            System.out.println("hole found"); //TESTING
             System.out.println("You fell in a pit and died. Better luck next time!");
             this.kill();
         } else if (currentCave.getTreasure()) {
+            System.out.println("treasure found"); //TESTING
             System.out.println("You found the treasure! Now you need to get to the exit!");
             this.setTreasure(true);
         }

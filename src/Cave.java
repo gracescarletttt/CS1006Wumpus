@@ -66,6 +66,4 @@ public class Cave {
     public boolean getRoute(){
         return this.route;
     }
-
-
 }
