@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class Simulation {
     private Cave[][] caves = new Cave[20][20];
+    private boolean running;
     private Player me = new Player();
 
     public Simulation(){
@@ -10,7 +11,8 @@ public class Simulation {
                 this.caves[y][x] = new Cave(y,x);
             }
         }
-        
+
+        this.running = true;    
     }
 
     // public void setPlayerObj(Player me){
@@ -83,9 +85,11 @@ public class Simulation {
     public void setWumpus(int thisMany, int playerY, int playerX, int wumpusY, int wumpusX){
         setting("wumpus", thisMany, playerY, playerX, wumpusY, wumpusX);
     }
+
     public void setPlayer(int y, int x){
         this.caves[y][x].setPlayer(true);
     }
+    
     public void setWumpus(int y, int x){
         this.caves[y][x].setWumpus(true);
     }
@@ -93,21 +97,27 @@ public class Simulation {
     public void setRoute(int y, int x){
         this.caves[y][x].setRoute(true);
     }
+
+
     public void removePlayer(int y, int x){
         this.caves[y][x].setPlayer(false);
     }
+
     public void removeTreasure(int y, int x){
         this.caves[y][x].setTreasure(false);
     }
 
-
-
+    public void stopRunning() {
+        this.running = false;
+    }
 
     public Cave[][] getCaves() {
         return this.caves;
     }
 
-
+    public boolean getRunning() {
+        return this.running;
+    }
 
     public boolean checkHole(int y, int x){
         if(this.caves[y][x].getHole() == true){
@@ -117,6 +127,7 @@ public class Simulation {
             return false;
         }
     }
+
     public boolean checkTreasure(int y, int x){
         if(this.caves[y][x].getTreasure() == true){
             return true;
@@ -125,6 +136,7 @@ public class Simulation {
             return false;
         }
     }
+
     public boolean checkBats(int y, int x){
         if(this.caves[y][x].getBat() == true){
             return true;
@@ -133,6 +145,7 @@ public class Simulation {
             return false;
         }
     }
+
     public boolean checkExit(int y, int x){
         if(this.caves[y][x].getExit() == true){
             return true;
@@ -141,8 +154,6 @@ public class Simulation {
             return false;
         }
     }
-
-
 
     public void displayBoard(){
         for(int y = 0; y < 20; y++){

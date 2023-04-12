@@ -130,7 +130,7 @@ public class Player {
     }
 
     //check the player's current position for hazards
-    public void checkPosition(Cave[][] caveSystem) {
+    public void checkPosition(Cave[][] caveSystem, Simulation simulation) {
         System.out.println("Checking position");
         Cave currentCave = caveSystem[this.getY()][this.getX()];
 
@@ -147,9 +147,16 @@ public class Player {
             System.out.println("You fell in a pit and died. Better luck next time!");
             this.kill();
         } else if (currentCave.getTreasure()) {
-            System.out.println("treasure found"); //TESTING
             System.out.println("You found the treasure! Now you need to get to the exit!");
             this.setTreasure(true);
+            simulation.removeTreasure(this.getY(), this.getX());
+        } else if (currentCave.getExit()) {
+            if (this.getTreasure()) {
+                System.out.println("Congratulations! You escaped with the treasure!");
+                simulation.stopRunning();
+            } else {
+                System.out.println("You've found the exit, however you have no treasure. Try to find the treasure and get back here safely to win.");
+            }
         }
     }
 
