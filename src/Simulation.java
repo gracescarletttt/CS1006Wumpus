@@ -17,10 +17,26 @@ public class Simulation {
         Wumpus wumpus = new Wumpus();
         this.wumpus = wumpus;
         setInitialstate();
+        checkPath();
+
+
+        this.running = true;    
+    }
+    public void setInitialstate(){
+        setPlayer(me.getY(), me.getX());
+        setWumpus(wumpus.getY(), wumpus.getX());
+        setBats(15, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setHoles(70, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+
+    }
+    public void checkPath(){
         PathFinder p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
         PathFinder q = new PathFinder(getCaves(), getTy(), getTx(), getEy(), getEx());
         System.out.println("generating");
-        while (!p.getPath() || !q.getPath()){
+        
+        while (!p.getPath() || !q.getPath()  ){
             for (int y = 0; y < 20; y++) {
                 for (int x = 0; x < 20; x++) {
                     this.caves[y][x] = new Cave(y,x);
@@ -32,17 +48,6 @@ public class Simulation {
          System.out.println("generating..");
 
         }
-
-
-        this.running = true;    
-    }
-    public void setInitialstate(){
-        setPlayer(me.getY(), me.getX());
-        setWumpus(wumpus.getY(), wumpus.getX());
-        setBats(15, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setHoles(100, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
 
     }
     public Player getMe(){
