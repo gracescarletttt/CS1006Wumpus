@@ -5,16 +5,12 @@ public class Main {
 
         //creating variables
         Simulation s = new Simulation();
-        Player me = new Player();
-        Wumpus wumpus = new Wumpus();
+        Player me = s.getMe();
+        Wumpus wumpus = s.getWumpus();
 
         //adding to simulation (could make this more efficient within simulation class?)
-        s.setPlayer(me.getY(), me.getX());
-        s.setWumpus(wumpus.getY(), wumpus.getX());
-        s.setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());//for each of these sets, pass in coordinates of wumpus and player to make sure these aren't placed on their co-ordinates
-        s.setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        s.setHoles(4, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        s.setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+    
+
 
         //display title and initial instructions
         System.out.println();

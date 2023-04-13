@@ -3,6 +3,8 @@ import java.util.Random;
 public class Simulation {
     private Cave[][] caves = new Cave[20][20];
     private boolean running;
+    private Player me;
+    private Wumpus wumpus;
 
     public Simulation(){
         for (int y = 0; y < 20; y++) {
@@ -10,8 +12,41 @@ public class Simulation {
                 this.caves[y][x] = new Cave(y,x);
             }
         }
+        Player me = new Player();
+        this.me = me;
+        Wumpus wumpus = new Wumpus();
+        this.wumpus = wumpus;
+        setPlayer(me.getY(), me.getX());
+        setWumpus(wumpus.getY(), wumpus.getX());
+        setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setHoles(150, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        PathFinder p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
+        while (!p.getPath()){
+            for (int y = 0; y < 20; y++) {
+                for (int x = 0; x < 20; x++) {
+                    this.caves[y][x] = new Cave(y,x);
+                }
+            }
+            setPlayer(me.getY(), me.getX());
+        setWumpus(wumpus.getY(), wumpus.getX());
+        setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setHoles(150, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+         p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
+
+        }
+
 
         this.running = true;    
+    }
+    public Player getMe(){
+        return this.me;
+    }
+    public Wumpus getWumpus(){
+        return this.wumpus;
     }
 
     public int getRandomNo(){
@@ -131,6 +166,33 @@ public class Simulation {
             return false;
         }
     }
+    public int getTx(){
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 20; x++) {
+                if(checkTreasure(y, x)){
+                    return x;
+                }
+                
+
+                
+            }
+        }
+        return 0;
+    }
+    public int getTy(){
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 20; x++) {
+                if(checkTreasure(y, x)){
+                    return y;
+                }
+                
+
+                
+            }
+        }
+        return 0;
+    }
+
 
     public boolean checkBats(int y, int x){
         if(this.caves[y][x].getBat() == true){
