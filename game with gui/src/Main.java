@@ -1,35 +1,68 @@
 import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args){
-
-        //display title and initial instructions
-        System.out.println();
-        System.out.println();
-        System.out.println("*********************************************************************************************");
-        System.out.println();
-        System.out.println("""
-            __                __       __   __                                                        
-            |  |--.--.--.-----|  |_    |  |_|  |--.-----.   .--.--.--.--.--.--------.-----.--.--.-----.
-            |     |  |  |     |   _|   |   _|     |  -__|   |  |  |  |  |  |        |  _  |  |  |__ --|
-            |__|__|_____|__|__|____|   |____|__|__|_____|   |________|_____|__|__|__|   __|_____|_____|
-                                                                                    |__|                                                                                                                                                                                                   
-                """);
-
-        System.out.println("*********************************************************************************************");
-        System.out.println("Try to find your way through the cave system to collect the treasure and make it to the exit.");
-        System.out.println("Within the cave system there are: a number of bottomless pits, one Wumpus, a number of Superbats, one treasure chest and one exit.");
-        System.out.println("- A Wumpus is very smelly. If you are in an adjacent cave to a Wumpus, you will smell it.");
-        System.out.println("- If you are in an adjacent cave to a pit, you will feel a breeze.");
-        System.out.println("- If you are in an adjacent cave to the treasure, you will see the treasure glittering.");
-        System.out.println("- If you are picked up by a Superbat, you will be moved to a random position in the cave system.");
-        System.out.println("On each move you can choose to move (m) or shoot (s). Use the wsad keys to choose the direction of your movement or shot.");
-        System.out.println();
 
         //setting variables
         Simulation s = new Simulation();
         Player me = s.getMe();
         Wumpus wumpus = s.getWumpus();
+
+        //frame setup
+        JFrame frame = new JFrame("Hunt the Wumpus");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(new Dimension(500,500));
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        //header setup
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+        //title setup
+        JLabel title = new JLabel("Hunt the Wumpus!");
+        title.setFont(new Font(null, Font.BOLD, 40));
+        headerPanel.add(title);
+
+        //instructions setup
+        JTextArea textArea = new JTextArea();
+        try (BufferedReader br = new BufferedReader(new FileReader("src/Instructions.txt"))) {
+            String line = br.readLine();
+            while (line != null) {
+                textArea.append(line);
+                textArea.append("\n");
+                line = br.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        textArea.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row.add(textArea);
+
+        //cave system setup
+        Dimension caveSize = new Dimension(20,20);
+        GridLayout caveGrid = new GridLayout(20,20);
+        JPanel gridPanel = new JPanel();
+        gridPanel.setLayout(caveGrid);
+        gridPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 20));
+
+
+        //initialise cave grid display
+        for (Cave[] caves : s.getCaves()) {
+            for (Cave cave: caves) {
+                cave.setPreferredSize(caveSize);
+                gridPanel.add(cave);
+            }
+        }
+
+        contentPanel.add(row);
+        contentPanel.add(gridPanel);
+        frame.add(headerPanel);
+        frame.add(contentPanel);
+
+        frame.setVisible(true);
 
         //display initial board and position
         s.displayBoard();

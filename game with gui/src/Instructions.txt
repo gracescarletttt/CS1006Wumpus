@@ -1,0 +1,7 @@
+Try to find your way through the cave system to collect the treasure and make it to the exit.
+Within the cave system there are: a number of bottomless pits, one Wumpus, a number of Superbats, one treasure chest and one exit.
+- A Wumpus is very smelly. If you are in an adjacent cave to a Wumpus, you will smell it.
+- If you are in an adjacent cave to a pit, you will feel a breeze.
+- If you are in an adjacent cave to the treasure, you will see the treasure glittering.
+- If you are picked up by a Superbat, you will be moved to a random position in the cave system.
+On each move you can choose to move (m) or shoot (s). Use the wsad keys to choose the direction of your movement or shot.

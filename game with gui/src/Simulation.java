@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.Random;
 
 public class Simulation {
@@ -10,6 +11,7 @@ public class Simulation {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
                 this.caves[y][x] = new Cave(y,x);
+                this.caves[y][x].setBackground(Color.WHITE);
             }
         }
         Player me = new Player();
@@ -126,6 +128,7 @@ public class Simulation {
 
     public void setPlayer(int y, int x){
         this.caves[y][x].setPlayer(true);
+        this.caves[y][x].setBackground(Color.RED);
     }
     
     public void setWumpus(int y, int x){
@@ -134,11 +137,13 @@ public class Simulation {
     
     public void setRoute(int y, int x){
         this.caves[y][x].setRoute(true);
+        this.caves[y][x].setBackground(Color.MAGENTA);
     }
 
 
     public void removePlayer(int y, int x){
         this.caves[y][x].setPlayer(false);
+        this.caves[y][x].setBackground(Color.WHITE);
     }
 
     public void removeTreasure(int y, int x){

@@ -1,4 +1,6 @@
-public class Cave {
+import javax.swing.*;
+
+public class Cave extends JButton {
     private int x;
     private int y;
     private boolean treasure;
@@ -71,14 +73,6 @@ public class Cave {
 
     public boolean getRoute(){
         return this.route;
-    }
-
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
     }
 
     public boolean checkWumpus(int x, int y) {
