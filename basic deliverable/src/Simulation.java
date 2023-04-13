@@ -22,6 +22,7 @@ public class Simulation {
 
         this.running = true;    
     }
+    
     public void setInitialstate(){
         setPlayer(me.getY(), me.getX());
         setWumpus(wumpus.getY(), wumpus.getX());
@@ -31,6 +32,7 @@ public class Simulation {
         setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
 
     }
+
     public void checkPath(){
         PathFinder p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
         PathFinder q = new PathFinder(getCaves(), getTy(), getTx(), getEy(), getEx());
@@ -50,9 +52,11 @@ public class Simulation {
         }
 
     }
+
     public Player getMe(){
         return this.me;
     }
+
     public Wumpus getWumpus(){
         return this.wumpus;
     }

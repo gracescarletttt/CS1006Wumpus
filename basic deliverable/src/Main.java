@@ -3,13 +3,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
 
-        //creating variables
-       
-
-        //adding to simulation (could make this more efficient within simulation class?)
-    
-
-
         //display title and initial instructions
         System.out.println();
         System.out.println();
@@ -33,6 +26,7 @@ public class Main {
         System.out.println("On each move you can choose to move (m) or shoot (s). Use the wsad keys to choose the direction of your movement or shot.");
         System.out.println();
 
+        //setting variables
         Simulation s = new Simulation();
         Player me = s.getMe();
         Wumpus wumpus = s.getWumpus();
