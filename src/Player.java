@@ -82,6 +82,10 @@ public class Player {
             }
             adjacentCave = caveSystem[x][this.getY()];
         }
+        else {
+            System.out.println("improper direction");
+            return;
+        }
 
         if (this.arrows > 0) {
             if (adjacentCave.checkWumpus(wumpus.getX(), wumpus.getY())) {
