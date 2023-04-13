@@ -16,31 +16,34 @@ public class Simulation {
         this.me = me;
         Wumpus wumpus = new Wumpus();
         this.wumpus = wumpus;
-        setPlayer(me.getY(), me.getX());
-        setWumpus(wumpus.getY(), wumpus.getX());
-        setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setHoles(150, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setInitialstate();
         PathFinder p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
-        while (!p.getPath()){
+        PathFinder q = new PathFinder(getCaves(), getTy(), getTx(), getEy(), getEx());
+        System.out.println("generating");
+        while (!p.getPath() || !q.getPath()){
             for (int y = 0; y < 20; y++) {
                 for (int x = 0; x < 20; x++) {
                     this.caves[y][x] = new Cave(y,x);
                 }
             }
-            setPlayer(me.getY(), me.getX());
-        setWumpus(wumpus.getY(), wumpus.getX());
-        setBats(2, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setHoles(150, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+          setInitialstate();
          p = new PathFinder(getCaves(), me.getY(), me.getX(), getTy(), getTx());
+         q = new PathFinder(getCaves(), getTy(), getTx(), getEy(), getEx());
+         System.out.println("generating..");
 
         }
 
 
         this.running = true;    
+    }
+    public void setInitialstate(){
+        setPlayer(me.getY(), me.getX());
+        setWumpus(wumpus.getY(), wumpus.getX());
+        setBats(15, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setHoles(100, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+
     }
     public Player getMe(){
         return this.me;
@@ -183,6 +186,32 @@ public class Simulation {
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
                 if(checkTreasure(y, x)){
+                    return y;
+                }
+                
+
+                
+            }
+        }
+        return 0;
+    }
+    public int getEx(){
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 20; x++) {
+                if(checkExit(y, x)){
+                    return x;
+                }
+                
+
+                
+            }
+        }
+        return 0;
+    }
+    public int getEy(){
+        for (int y = 0; y < 20; y++) {
+            for (int x = 0; x < 20; x++) {
+                if(checkExit(y, x)){
                     return y;
                 }
                 

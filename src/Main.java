@@ -4,9 +4,7 @@ public class Main {
     public static void main(String[] args){
 
         //creating variables
-        Simulation s = new Simulation();
-        Player me = s.getMe();
-        Wumpus wumpus = s.getWumpus();
+       
 
         //adding to simulation (could make this more efficient within simulation class?)
     
@@ -34,6 +32,10 @@ public class Main {
         System.out.println("- If you are picked up by a Superbat, you will be moved to a random position in the cave system.");
         System.out.println("On each move you can choose to move (m) or shoot (s). Use the wsad keys to choose the direction of your movement or shot.");
         System.out.println();
+
+        Simulation s = new Simulation();
+        Player me = s.getMe();
+        Wumpus wumpus = s.getWumpus();
 
         //display initial board and position
         s.displayBoard();
