@@ -19,7 +19,7 @@ public class Main {
         //header setup
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         //title setup
         JLabel title = new JLabel("Hunt the Wumpus!");
         title.setFont(new Font(null, Font.BOLD, 40));
@@ -27,7 +27,7 @@ public class Main {
 
         //instructions setup
         JTextArea textArea = new JTextArea();
-        try (BufferedReader br = new BufferedReader(new FileReader("src/Instructions.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Instructions.txt"))) {
             String line = br.readLine();
             while (line != null) {
                 textArea.append(line);

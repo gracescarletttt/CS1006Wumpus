@@ -27,7 +27,7 @@ public boolean getPath(){
 }
  public void isPath(int matrix[][], int n)
     {
-        // Defining visited array to keep
+       
         // track of already visited indexes
         boolean visited[][] = new boolean[n][n];
  
@@ -66,12 +66,7 @@ public boolean getPath(){
             return true;
         return false;
     }
- 
-    // Returns true if there is a
-    // path from a source (a
-    // cell with value 1) to a
-    // destination (a cell with
-    // value 2)
+
     public static boolean isPath(int matrix[][], int i,
                                  int j, boolean visited[][])
     {
@@ -85,38 +80,31 @@ public boolean getPath(){
  
             // if the cell is the required
             // destination then return true
-            if (matrix[i][j] == 2)
+            if (matrix[i][j] == 2){
                 return true;
- 
+            }
+
  
             boolean up = isPath(matrix, i - 1, j, visited);
+            boolean left  = isPath(matrix, i, j - 1, visited);
+            boolean down = isPath(matrix, i + 1, j, visited);
+            boolean right = isPath(matrix, i, j + 1, visited);
  
            
-            if (up)
+            if (up){
                 return true;
- 
-    
-            boolean left
-                = isPath(matrix, i, j - 1, visited);
- 
-           
-            if (left)
+            }
+           if (left){
                 return true;
- 
- 
-            boolean down
-                = isPath(matrix, i + 1, j, visited);
- 
-    
-            if (down)
+           }
+           if (down){
                 return true;
-
-            boolean right
-                = isPath(matrix, i, j + 1, visited);
+           }
  
       
-            if (right)
+            if (right){
                 return true;
+            }
         }
         // no path has been found
         return false;
