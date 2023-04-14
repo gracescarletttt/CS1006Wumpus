@@ -19,29 +19,33 @@ public class Player {
 
     //move
     public void move(String direction) {
-        if (direction.equals("s")) {
+        if (direction.equalsIgnoreCase("s")) {
             if (this.y == 19) {
                 this.y = 0;
             } else {
                 this.y++;
             }
-        } else if (direction.equals("w")) {
+        } else if (direction.equalsIgnoreCase("w")) {
             if (this.y == 0) {
                 this.y = 19;
             } else {
                 this.y--;
             }
-        } else if (direction.equals("a")) {
+        } else if (direction.equalsIgnoreCase("a")) {
             if (this.x == 0) {
                 this.x = 19;
             } else {
                 this.x--;
             }
-        } else if (direction.equals("d")) {
+        } else if (direction.equalsIgnoreCase("d")) {
             if (this.x == 19) {
                 this.x = 0;
             }
             this.x++;
+        }
+        else {
+            System.out.println("improper direction");
+            return;
         }
     }
 
@@ -49,7 +53,7 @@ public class Player {
     public void shoot(Cave[][] caveSystem, Wumpus wumpus, String direction, Simulation simulation) {
         Cave adjacentCave = null;
 
-        if (direction.equals("w")) {
+        if (direction.equalsIgnoreCase("w")) {
             int y;
             if (this.getY()== 0) {
                 y = 19;
@@ -57,7 +61,7 @@ public class Player {
                 y = this.getY() - 1;
             }
             adjacentCave = caveSystem[this.getX()][y];
-        } else if (direction.equals("s")) {
+        } else if (direction.equalsIgnoreCase("s")) {
             int y;
             if (this.getY() == 19) {
                 y = 0;
@@ -65,7 +69,7 @@ public class Player {
                 y = this.getY() + 1;
             }
             adjacentCave = caveSystem[this.getX()][y];
-        } else if (direction.equals("d")) {
+        } else if (direction.equalsIgnoreCase("d")) {
             int x;
             if (this.getX() == 19) {
                 x = 0;
@@ -73,7 +77,7 @@ public class Player {
                 x = this.getX() + 1;
             } 
             adjacentCave = caveSystem[x][this.getY()];
-        } else if (direction.equals("a")) {
+        } else if (direction.equalsIgnoreCase("a")) {
             int x;
             if (this.getX() == 0) {
                 x = 19;
