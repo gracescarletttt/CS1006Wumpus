@@ -65,7 +65,8 @@ public class Main {
         frame.setVisible(true);
 
         //display initial board and position
-        s.displayBoard();
+     //   s.displayBoard();
+        me.checkNeighbours(s.getCaves());
         System.out.println(me.getY() + " Y and X " + me.getX());
         System.out.println("You have "+me.getArrows()+" arrows left");
 
@@ -76,8 +77,13 @@ public class Main {
         while(me.getStatus() && s.getRunning()){
             System.out.println("Press [m] to move or [s] to shoot: ");
             String command = reader.nextLine();
-
+            
+            if (command.equals("!cheat")){
+                s.displayBoard();
+                continue;
+            }
             if (command.toLowerCase().equals("m")) {
+                System.out.println("w(^) a(<) s(v) d(>)");
                 String direction = reader.nextLine();
                 //moving
                 int yPosBeforeMove = me.getY();
@@ -89,6 +95,7 @@ public class Main {
                 s.setRoute(yPosBeforeMove, xPosBeforeMove);
                 s.setPlayer(me.getY(), me.getX());
             } else if (command.toLowerCase().equals("s")) {
+                System.out.println("w(^) a(<) s(v) d(>)");
                 String direction = reader.nextLine();
                 me.shoot(s.getCaves(), wumpus, direction,s);
             } else {
@@ -97,16 +104,21 @@ public class Main {
 
             //checking for hazards
             me.checkPosition(s.getCaves(),s);
+            if (!me.getStatus()){
+                return;
+            }
 
             //checking for percepts
             me.checkNeighbours(s.getCaves());
 
             //display board and position
-            s.displayBoard();
+          //  s.displayBoard();
             System.out.println(me.getY() + " Y and X " + me.getX());
             System.out.println("You have "+me.getArrows()+" arrows left");   
         }
+       
         reader.close();
+       
 
     }
 }

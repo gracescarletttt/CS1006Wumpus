@@ -30,7 +30,7 @@ public class Simulation {
         setWumpus(wumpus.getY(), wumpus.getX());
         setBats(15, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
         setExit(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
-        setHoles(70, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
+        setHoles(50, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
         setTreasure(1, me.getY(), me.getX(), wumpus.getY(), wumpus.getX());
 
     }

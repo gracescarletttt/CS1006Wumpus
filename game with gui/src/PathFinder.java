@@ -1,6 +1,7 @@
 public class PathFinder {
     private int[][] test = new int[20][20];
     private boolean exists;
+    // inspired by https://www.geeksforgeeks.org/find-whether-path-two-cells-matrix/ solution
     public PathFinder(Cave[][] cave, int sx, int sy, int dx, int dy){
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -20,6 +21,7 @@ public class PathFinder {
              //       System.out.print(this.test[y][x]+ " ");
               //  }
         //    }
+        // Recursive search through the dungeon to find a path
          isPath(test, 20);
 }
 public boolean getPath(){
@@ -31,29 +33,27 @@ public boolean getPath(){
         // track of already visited indexes
         boolean visited[][] = new boolean[n][n];
  
-        // Flag to indicate whether the
-        // path exists or not
-        boolean flag = false;
+        
+        boolean pass = false;
  
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                // if matrix[i][j] is source
-                // and it is not visited
+         
                 if (matrix[i][j] == 1 && !visited[i][j])
  
-                    // Starting from i, j and
-                    // then finding the path
                     if (isPath(matrix, i, j, visited)) {
                         // if path exists
-                        flag = true;
+                        pass = true;
                         break;
                     }
             }
         }
-        if (flag)
+        if (pass){
             this.exists = true;
-        else
+        }
+        else{
             this.exists = false;
+            }
     }
  
     // Method for checking boundaries
@@ -71,15 +71,16 @@ public boolean getPath(){
                                  int j, boolean visited[][])
     {
  
-        // Checking the boundaries, walls and
-        // whether the cell is unvisited
+
+        
         if (isSafe(i, j, matrix) && matrix[i][j] != 0
             && !visited[i][j]) {
-            // Make the cell visited
+
+                
             visited[i][j] = true;
  
-            // if the cell is the required
-            // destination then return true
+           
+            
             if (matrix[i][j] == 2){
                 return true;
             }
